@@ -7,21 +7,25 @@ import "../styles/PhotoListItem.scss";
 
 const PhotoListItem = (props) => {
   const [favourite, setFavourite] = useState(false);
+  // set use state to false, prev changes condition to not prev whenever
+  // toggleFavourite is called 
   const toggleFavourite = () => {
     setFavourite((prev) => !prev);
   }
+  const {photo} = props
   return (
     <div className="photo-list__item">
+       {/* props passed to photofavbutton  */}
       <PhotoFavButton
         selected={favourite}
         onClick={toggleFavourite}
       />
-      <img className="photo-list__image" src={props.photo.imageSource} alt="photo" />
+      <img className="photo-list__image" src={photo.urls.regular} alt="photo" />
       <div className="photo-list__user-details">
-        <img className="photo-list__user-profile" src={props.photo.profile} alt="profile" />
+        <img className="photo-list__user-profile" src={photo.user.profile} alt="profile" />
         <div className="photo-list__user-info">
-          <p >{props.photo.username}</p>
-          <p className="photo-list__user-location">{`${props.photo.location.city}, ${props.photo.location.country}`}</p>
+          <p >{photo.user.username}</p>
+          <p className="photo-list__user-location">{`${photo.location.city}, ${photo.location.country}`}</p>
         </div>
       </div>
     </div>
