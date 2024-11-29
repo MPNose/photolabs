@@ -7,7 +7,7 @@ import "../styles/PhotoListItem.scss";
 
 const PhotoListItem = (props) => {
  
-  const {photo, toggleFavourite, isPhotoFaved} = props
+  const {photo, toggleFavourite, isPhotoFaved, openModal} = props
   return (
     <div className="photo-list__item">
       
@@ -16,7 +16,7 @@ const PhotoListItem = (props) => {
         onClick={() => toggleFavourite(photo.id)}
         
       />
-      <img className="photo-list__image" src={photo.urls.regular} alt="photo" />
+      <img  className="photo-list__image" src={photo.urls.regular} alt="photo" onClick={() => openModal()}/>
       <div className="photo-list__user-details">
         <img className="photo-list__user-profile" src={photo.user.profile} alt="profile" />
         <div className="photo-list__user-info">
