@@ -18,11 +18,12 @@ const App = () => {
     }
     return setFavourites([...favourites, id]);
   }
+  const isFavPhotoExist = favourites.length > 0;
   const isPhotoFaved = (id) => favourites.includes(id);
   return (
     <div className="App">
       
-       <HomeRoute topics={topics} photos={photos} toggleFavourite={toggleFavourite} isPhotoFaved={isPhotoFaved}/>
+       <HomeRoute topics={topics} photos={photos} toggleFavourite={toggleFavourite} isPhotoFaved={isPhotoFaved} isFavPhotoExist={isFavPhotoExist}/>
     </div>
   );
 };

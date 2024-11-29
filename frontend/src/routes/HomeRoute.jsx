@@ -4,10 +4,10 @@ import PhotoList from 'components/PhotoList';
 import '../styles/HomeRoute.scss';
 
 const HomeRoute = (props) => {
-  const {topics, photos, toggleFavourite, isPhotoFaved} = props
+  const {topics, photos, toggleFavourite, isPhotoFaved, isFavPhotoExist} = props
   return (
     <div className="home-route">
-      <TopNavigation topics={topics} toggleFavourite={toggleFavourite}/>
+      <TopNavigation topics={topics} toggleFavourite={toggleFavourite} isFavPhotoExist={isFavPhotoExist}/>
       <PhotoList photos={photos} toggleFavourite={toggleFavourite} isPhotoFaved={isPhotoFaved}/>
     </div>
   );
