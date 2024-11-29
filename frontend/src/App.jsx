@@ -13,10 +13,10 @@ import './App.scss';
 const App = () => {
   const [favourites, setFavourites] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const openModal = () => {
+  const openPhotoModal = () => {
     setIsModalOpen(true);
   }
-  const closeModal = () => {
+  const closePhotoModal = () => {
     setIsModalOpen(false);
   }
   const toggleFavourite = (id) => {
@@ -31,9 +31,9 @@ const App = () => {
   return (
     <div className="App">
       
-       <HomeRoute topics={topics} photos={photos} toggleFavourite={toggleFavourite} isPhotoFaved={isPhotoFaved} isFavPhotoExist={isFavPhotoExist} openModal={openModal}/>
+       <HomeRoute topics={topics} photos={photos} toggleFavourite={toggleFavourite} isPhotoFaved={isPhotoFaved} isFavPhotoExist={isFavPhotoExist} openPhotoModal={openPhotoModal}/>
        {isModalOpen && (
-       <PhotoDetailsModal  closeModal={closeModal}/>)}
+       <PhotoDetailsModal  closePhotoModal={closePhotoModal}/>)}
     </div>
   );
 };
