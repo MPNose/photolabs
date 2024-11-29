@@ -1,6 +1,5 @@
-import React from 'react';
-// import PhotoList from 'components/PhotoList';
-// import TopNavigation from 'components/TopNavigationBar';
+import React  from 'react';
+import { useState } from "react";
 import HomeRoute from 'routes/HomeRoute';
 import photos from 'mocks/photos';
 import topics from 'mocks/topics';
@@ -11,13 +10,19 @@ import './App.scss';
 
 // Note: Rendering a single component to build components in isolation
 const App = () => {
-  
+  const [favourites, setFavourites] = useState([]);
+  const toggleFavourite = (id) => {
+   
+    if (favourites.includes(id)) {
+      return setFavourites(favourites.filter(element => element !== id));
+    }
+    return setFavourites([...favourites, id]);
+  }
+  const isPhotoFaved = (id) => favourites.includes(id);
   return (
     <div className="App">
-      {/* <TopNavigation/>
       
-       <PhotoList /> */}
-       <HomeRoute topics={topics} photos={photos}/>
+       <HomeRoute topics={topics} photos={photos} toggleFavourite={toggleFavourite} isPhotoFaved={isPhotoFaved}/>
     </div>
   );
 };
