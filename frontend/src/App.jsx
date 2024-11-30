@@ -35,6 +35,7 @@ const App = () => {
        isPhotoFaved={isPhotoFaved} 
        isFavPhotoExist={isFavPhotoExist} 
        openPhotoModal={setPhotoSelected}/>
+       
        {isModalOpen && (
        <PhotoDetailsModal 
        toggleFavourite={updateToFavPhotoIds} 
