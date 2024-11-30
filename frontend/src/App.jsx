@@ -1,5 +1,5 @@
 import React  from 'react';
-import { useState } from "react";
+import useApplicationData from 'hooks/useApplicationData';
 import HomeRoute from 'routes/HomeRoute';
 import PhotoDetailsModal from 'routes/PhotoDetailsModal';
 import photos from 'mocks/photos';
@@ -11,38 +11,38 @@ import './App.scss';
 
 
 const App = () => {
-  const [favourites, setFavourites] = useState([]);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedPhoto, setSelectedPhoto] = useState(null);
+  const {
+    favourites,
+    isModalOpen,
+    selectedPhoto,
+    updateToFavPhotoIds,
+    setPhotoSelected,
+    onClosePhotoDetailsModal,
+    isFavPhotoExist,
+    isPhotoFaved
+  } = useApplicationData();
+
   
-  const openPhotoModal = (photo) => {
-    setSelectedPhoto(photo);
-    setIsModalOpen(true);
-  }
-  
-  const closePhotoModal = () => {
-    setIsModalOpen(false);
-    setSelectedPhoto(null);
-  }
-  
-  const toggleFavourite = (id) => {
-   
-    if (favourites.includes(id)) {
-      return setFavourites(favourites.filter(element => element !== id));
-    }
-    return setFavourites([...favourites, id]);
-  }
-  
-  const isFavPhotoExist = favourites.length > 0;
-  
-  const isPhotoFaved = (id) => favourites.includes(id);
+
   
   return (
     <div className="App">
       
-       <HomeRoute topics={topics} photos={photos} toggleFavourite={toggleFavourite} isPhotoFaved={isPhotoFaved} isFavPhotoExist={isFavPhotoExist} openPhotoModal={openPhotoModal}/>
+       <HomeRoute 
+       topics={topics} 
+       photos={photos} 
+       toggleFavourite={updateToFavPhotoIds} 
+       isPhotoFaved={isPhotoFaved} 
+       isFavPhotoExist={isFavPhotoExist} 
+       openPhotoModal={setPhotoSelected}/>
        {isModalOpen && (
-       <PhotoDetailsModal toggleFavourite={toggleFavourite} isPhotoFaved={isPhotoFaved} isFavPhotoExist={isFavPhotoExist} openPhotoModal={openPhotoModal}photo={selectedPhoto} closePhotoModal={closePhotoModal}/>)}
+       <PhotoDetailsModal 
+       toggleFavourite={updateToFavPhotoIds} 
+       isPhotoFaved={isPhotoFaved} 
+       isFavPhotoExist={isFavPhotoExist} 
+       openPhotoModal={setPhotoSelected}
+       photo={selectedPhoto} 
+       closePhotoModal={onClosePhotoDetailsModal}/>)}
     </div>
   );
 };
