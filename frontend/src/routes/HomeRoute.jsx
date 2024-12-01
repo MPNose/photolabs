@@ -4,11 +4,15 @@ import PhotoList from 'components/PhotoList';
 import '../styles/HomeRoute.scss';
 
 const HomeRoute = (props) => {
-  const {topics, photos, toggleFavourite, isPhotoFaved, isFavPhotoExist, openPhotoModal} = props
+  const { topics, photoData, toggleFavourite, isPhotoFaved, isFavPhotoExist, openPhotoModal, topicPhotos, handleTopicSelection } = props
   return (
     <div className="home-route">
-      <TopNavigation topics={topics} toggleFavourite={toggleFavourite} isFavPhotoExist={isFavPhotoExist}/>
-      <PhotoList photos={photos} toggleFavourite={toggleFavourite} isPhotoFaved={isPhotoFaved} openPhotoModal={openPhotoModal}/>
+      <TopNavigation 
+      topics={topics} 
+      toggleFavourite={toggleFavourite} isFavPhotoExist={isFavPhotoExist}
+      handleTopicSelection={handleTopicSelection}/>
+
+      <PhotoList photos={topicPhotos.length > 0 ? topicPhotos : photoData} toggleFavourite={toggleFavourite} isPhotoFaved={isPhotoFaved} openPhotoModal={openPhotoModal}/>
     </div>
   );
 };

@@ -8,7 +8,9 @@ const initialState = {
   isModalOpen: false,
   selectedPhoto: null,
   photoData: [],
-  topicData: []
+  topicData: [],
+  topicPhotos: [],
+  selectedTopicId: null
 };
 
 const actions = {
@@ -16,7 +18,9 @@ const actions = {
   SET_PHOTO_SELECTED: "SET_PHOTO_SELECTED",
   CLOSE_PHOTO_MODAL: "CLOSE_PHOTO_MODAL",
   SET_PHOTO_DATA: "SET_PHOTO_DATA",
-  SET_TOPIC_DATA: "SET_TOPIC_DATA"
+  SET_TOPIC_DATA: "SET_TOPIC_DATA",
+  GET_PHOTOS_BY_TOPICS: "GET_PHOTOS_BY_TOPICS",
+  SET_SELECTED_TOPIC: "SET_SELECTED_TOPIC"
 }
 
 const reducer = (state, action) => {
@@ -39,7 +43,13 @@ const reducer = (state, action) => {
       return { ...state, photoData: action.payload }
 
     case actions.SET_TOPIC_DATA:
-      return { ...state, topicData: action.payload }  
+      return { ...state, topicData: action.payload }
+
+    case actions.GET_PHOTOS_BY_TOPICS:
+      return { ...state, topicPhotos: action.payload }
+
+    case actions.SET_SELECTED_TOPIC:
+      return { ...state, selectedTopicId: action.payload }
 
     default:
       return state;
@@ -54,14 +64,28 @@ const useApplicationData = () => {
   useEffect(() => {
     fetch('/api/photos')
       .then((response) => response.json())
-      .then((data) => dispatch({ type: actions.SET_PHOTO_DATA, payload: data}));
+      .then((data) => dispatch({ type: actions.SET_PHOTO_DATA, payload: data }));
   }, []);
+
+  useEffect(() => {
+    if (state.selectedTopicId) {
+    fetch(`/api/topics/photos/${state.selectedTopicId}`)
+      .then((response) => response.json())
+      .then((data) => dispatch({ type: actions.GET_PHOTOS_BY_TOPICS, payload: data }))
+    }
+  }, [state.selectedTopicId]);
+
+  const handleTopicSelection = (topicId) => {
+    dispatch({ type: actions.SET_SELECTED_TOPIC, payload: topicId})
+  };
+
 
   useEffect(() => {
     fetch('/api/topics')
       .then((response) => response.json())
-      .then((data) => dispatch({ type: actions.SET_TOPIC_DATA, payload: data}))
-  }, []);
+      .then((data) => dispatch({ type: actions.SET_TOPIC_DATA, payload: data }))
+  })
+
 
   const updateToFavPhotoIds = (id) => {
     dispatch({ type: actions.TOGGLE_FAVOURITE, payload: { id } });
@@ -84,11 +108,13 @@ const useApplicationData = () => {
     selectedPhoto: state.selectedPhoto,
     photoData: state.photoData,
     topicData: state.topicData,
+    topicPhotos: state.topicPhotos,
     updateToFavPhotoIds,
     setPhotoSelected,
     onClosePhotoDetailsModal,
     isFavPhotoExist,
-    isPhotoFaved
+    isPhotoFaved,
+    handleTopicSelection
   }
 };
 

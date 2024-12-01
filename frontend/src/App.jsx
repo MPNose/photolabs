@@ -16,11 +16,13 @@ const App = () => {
     selectedPhoto,
     photoData,
     topicData,
+    topicPhotos,
     updateToFavPhotoIds,
     setPhotoSelected,
     onClosePhotoDetailsModal,
     isFavPhotoExist,
-    isPhotoFaved
+    isPhotoFaved,
+    handleTopicSelection
   } = useApplicationData();
 
   
@@ -31,10 +33,12 @@ const App = () => {
       
        <HomeRoute 
        topics={topicData} 
-       photos={photoData} 
+       photoData={photoData} 
+       topicPhotos={topicPhotos}
        toggleFavourite={updateToFavPhotoIds} 
        isPhotoFaved={isPhotoFaved} 
        isFavPhotoExist={isFavPhotoExist} 
+       handleTopicSelection={handleTopicSelection}
        openPhotoModal={setPhotoSelected}/>
        
        {isModalOpen && (
