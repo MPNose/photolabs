@@ -2,8 +2,7 @@ import React  from 'react';
 import useApplicationData from 'hooks/useApplicationData';
 import HomeRoute from 'routes/HomeRoute';
 import PhotoDetailsModal from 'routes/PhotoDetailsModal';
-import photos from 'mocks/photos';
-import topics from 'mocks/topics';
+
 import './App.scss';
 
 
@@ -15,6 +14,8 @@ const App = () => {
     favourites,
     isModalOpen,
     selectedPhoto,
+    photoData,
+    topicData,
     updateToFavPhotoIds,
     setPhotoSelected,
     onClosePhotoDetailsModal,
@@ -29,8 +30,8 @@ const App = () => {
     <div className="App">
       
        <HomeRoute 
-       topics={topics} 
-       photos={photos} 
+       topics={topicData} 
+       photos={photoData} 
        toggleFavourite={updateToFavPhotoIds} 
        isPhotoFaved={isPhotoFaved} 
        isFavPhotoExist={isFavPhotoExist} 
