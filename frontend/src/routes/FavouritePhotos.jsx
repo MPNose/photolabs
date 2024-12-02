@@ -3,18 +3,18 @@ import TopNavigation from 'components/TopNavigationBar';
 import PhotoList from 'components/PhotoList';
 import '../styles/HomeRoute.scss';
 
-const HomeRoute = (props) => {
+const FavouritePhotos = (props) => {
   const {
+    favourites,
     topics,
-    photoData,
     toggleFavourite,
     isPhotoFaved,
     isFavPhotoExist,
     openPhotoModal,
-    topicPhotos,
     handleTopicSelection,
-    handleViewChange} = props;
+    handleViewChange } = props;
 
+    
 
   return (
     <div className="home-route">
@@ -25,12 +25,16 @@ const HomeRoute = (props) => {
         handleTopicSelection={handleTopicSelection}
         handleViewChange={handleViewChange} />
 
-      <PhotoList photos={topicPhotos.length > 0 ? topicPhotos : photoData}
+<button onClick={() => handleViewChange('home')} >
+        Back to Home
+      </button>
+
+      <PhotoList photos={favourites}
         toggleFavourite={toggleFavourite}
         isPhotoFaved={isPhotoFaved}
         openPhotoModal={openPhotoModal} />
     </div>
   );
-};
+}
 
-export default HomeRoute;
+export default FavouritePhotos;

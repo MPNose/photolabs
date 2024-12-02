@@ -10,7 +10,8 @@ const initialState = {
   photoData: [],
   topicData: [],
   topicPhotos: [],
-  selectedTopicId: null
+  selectedTopicId: null,
+  activeView: 'home'
 };
 
 const actions = {
@@ -20,18 +21,20 @@ const actions = {
   SET_PHOTO_DATA: "SET_PHOTO_DATA",
   SET_TOPIC_DATA: "SET_TOPIC_DATA",
   GET_PHOTOS_BY_TOPICS: "GET_PHOTOS_BY_TOPICS",
-  SET_SELECTED_TOPIC: "SET_SELECTED_TOPIC"
+  SET_SELECTED_TOPIC: "SET_SELECTED_TOPIC",
+  SET_ACTIVE_VIEW: "SET_ACTIVE_VIEW"
 }
 
 const reducer = (state, action) => {
   switch (action.type) {
     case actions.TOGGLE_FAVOURITE:
       const { id } = action.payload;
-      const isFavourite = state.favourites.includes(id);
+      const photo = state.photoData.find(p => p.id === id);
+      const isFavourite = state.favourites.some(fav => fav.id === id);
       const newFavourites = isFavourite
-        ? state.favourites.filter((element) => element !== id)
-        : [...state.favourites, id];
-      return { ...state, favourites: newFavourites };
+        ? state.favourites.filter((fav) => fav.id !== id)
+        : [...state.favourites, photo];
+      return {...state, favourites: newFavourites };
 
     case actions.SET_PHOTO_SELECTED:
       return { ...state, selectedPhoto: action.payload, isModalOpen: true };
@@ -50,6 +53,10 @@ const reducer = (state, action) => {
 
     case actions.SET_SELECTED_TOPIC:
       return { ...state, selectedTopicId: action.payload };
+
+    case actions.SET_ACTIVE_VIEW:
+      return { ...state, activeView: action.payload };  
+ 
 
     default:
       return state;
@@ -86,7 +93,11 @@ const useApplicationData = () => {
   const handleTopicSelection = (topicId) => {
     dispatch({ type: actions.SET_SELECTED_TOPIC, payload: topicId });
   };
-
+  
+  const handleViewChange = (view) => {
+    dispatch({ type: actions.SET_ACTIVE_VIEW, payload: view });
+  }
+  
   const updateToFavPhotoIds = (id) => {
     dispatch({ type: actions.TOGGLE_FAVOURITE, payload: { id } });
   };
@@ -100,7 +111,7 @@ const useApplicationData = () => {
   };
   const isFavPhotoExist = state.favourites.length > 0;
   //helper functions to check if array full, if photo id faved
-  const isPhotoFaved = (id) => state.favourites.includes(id);
+  const isPhotoFaved = (id) => state.favourites.some(fav => fav.id === id);
 
   return {
     favourites: state.favourites,
@@ -109,12 +120,14 @@ const useApplicationData = () => {
     photoData: state.photoData,
     topicData: state.topicData,
     topicPhotos: state.topicPhotos,
+    activeView: state.activeView,
     updateToFavPhotoIds,
     setPhotoSelected,
     onClosePhotoDetailsModal,
     isFavPhotoExist,
     isPhotoFaved,
-    handleTopicSelection
+    handleTopicSelection,
+    handleViewChange
   }
 };
 

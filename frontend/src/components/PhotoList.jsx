@@ -18,7 +18,7 @@ const PhotoList = (props) => {
           key={photo.id}
           photo={photo}
           toggleFavourite={toggleFavourite}
-          isPhotoFaved={isPhotoFaved}
+          isPhotoFaved={(id) => isPhotoFaved(id)}
           openPhotoModal={openPhotoModal} />
       ))}
 
