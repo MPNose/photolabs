@@ -40,16 +40,16 @@ const reducer = (state, action) => {
       return { ...state, selectedPhoto: null, isModalOpen: false };
 
     case actions.SET_PHOTO_DATA:
-      return { ...state, photoData: action.payload }
+      return { ...state, photoData: action.payload };
 
     case actions.SET_TOPIC_DATA:
-      return { ...state, topicData: action.payload }
+      return { ...state, topicData: action.payload };
 
     case actions.GET_PHOTOS_BY_TOPICS:
-      return { ...state, topicPhotos: action.payload }
+      return { ...state, topicPhotos: action.payload };
 
     case actions.SET_SELECTED_TOPIC:
-      return { ...state, selectedTopicId: action.payload }
+      return { ...state, selectedTopicId: action.payload };
 
     default:
       return state;
@@ -64,20 +64,17 @@ const useApplicationData = () => {
   useEffect(() => {
     fetch('/api/photos')
       .then((response) => response.json())
-      .then((data) => dispatch({ type: actions.SET_PHOTO_DATA, payload: data }));
+      .then((data) => dispatch({ type: actions.SET_PHOTO_DATA, payload: data }))
   }, []);
 
   useEffect(() => {
     if (state.selectedTopicId) {
-    fetch(`/api/topics/photos/${state.selectedTopicId}`)
-      .then((response) => response.json())
-      .then((data) => dispatch({ type: actions.GET_PHOTOS_BY_TOPICS, payload: data }))
+      fetch(`/api/topics/photos/${state.selectedTopicId}`)
+        .then((response) => response.json())
+        .then((data) => dispatch({ type: actions.GET_PHOTOS_BY_TOPICS, payload: data }))
     }
   }, [state.selectedTopicId]);
 
-  const handleTopicSelection = (topicId) => {
-    dispatch({ type: actions.SET_SELECTED_TOPIC, payload: topicId})
-  };
 
 
   useEffect(() => {
@@ -86,6 +83,9 @@ const useApplicationData = () => {
       .then((data) => dispatch({ type: actions.SET_TOPIC_DATA, payload: data }))
   })
 
+  const handleTopicSelection = (topicId) => {
+    dispatch({ type: actions.SET_SELECTED_TOPIC, payload: topicId });
+  };
 
   const updateToFavPhotoIds = (id) => {
     dispatch({ type: actions.TOGGLE_FAVOURITE, payload: { id } });

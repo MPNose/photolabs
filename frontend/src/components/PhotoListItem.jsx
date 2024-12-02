@@ -6,19 +6,29 @@ import "../styles/PhotoListItem.scss";
 
 
 const PhotoListItem = (props) => {
- 
-  const {photo, toggleFavourite, isPhotoFaved, openPhotoModal} = props
+
+  const {
+    photo,
+    toggleFavourite,
+    isPhotoFaved,
+    openPhotoModal } = props;
+
   return (
     <div className="photo-list__item">
-      
+
       <PhotoFavButton
         selected={isPhotoFaved(photo.id)}
         onClick={() => toggleFavourite(photo.id)}
-        
+
       />
-      <img  className="photo-list__image" src={photo.urls.regular} alt="photo" onClick={() => openPhotoModal(photo)}/>
+      <img
+        className="photo-list__image"
+        src={photo.urls.regular} alt="photo"
+        onClick={() => openPhotoModal(photo)} />
       <div className="photo-list__user-details">
-        <img className="photo-list__user-profile" src={photo.user.profile} alt="profile" />
+        <img
+          className="photo-list__user-profile"
+          src={photo.user.profile} alt="profile" />
         <div className="photo-list__user-info">
           <p >{photo.user.username}</p>
           <p className="photo-list__user-location">{`${photo.location.city}, ${photo.location.country}`}</p>
