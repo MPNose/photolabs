@@ -1,5 +1,5 @@
 # react-photolabs
-The PhotoLabs project for the Web Development React course programming.
+A Photolabs project app utilizing React front and back end principles.
 
 # Photolabs
 
