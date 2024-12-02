@@ -22,3 +22,6 @@ Read `backend/readme` for further setup details.
 cd backend
 npm start
 ```
+!["Nav bar"](https://raw.githubusercontent.com/MPNose/photolabs/7f249f65b191442b3a83d2b7c56f66ef314cafa0/docs/nav-bar.png)
+
+!["People page"](https://raw.githubusercontent.com/MPNose/photolabs/7f249f65b191442b3a83d2b7c56f66ef314cafa0/docs/people-page.png)
